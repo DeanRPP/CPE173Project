@@ -443,6 +443,33 @@ function renderReceipts(){
     `<p class="no-receipts">No orders placed yet this session.</p>`;
 }
 
+function receiptText(r){
+  const rule="-".repeat(40);
+  const pad=(label,value)=>label+" ".repeat(Math.max(1,40-label.length-value.length))+value;
+  const out=[
+    "WrnEats",
+    rule,
+    `Order #${r.num} (${r.type==="dine"?"Dine In":"Takeout"})`,
+    r.time.toLocaleString(),
+    rule
+  ];
+  r.lines.forEach(l=>{
+    out.push(pad(`${l.qty} x ${l.name}`,usd(l.unit*l.qty)));
+    out.push("   "+(l.alc?"Ordered on its own":(l.adds.length?"Add-ons: "+l.adds.map(a=>a[0]).join(", "):"No add-ons")));
+    if(l.drink)out.push(`   Drink: ${SIZES[l.sizeIdx]} ${l.drink.n}`);
+  });
+  out.push(rule,pad("Subtotal",usd(r.subtotal)),pad("Tax",usd(r.tax)),pad("Total",usd(r.total)),
+    pad("Cash tendered",usd(r.tendered)),pad("Change",usd(r.change)),rule,"Thank you!");
+  return out.join("\n");
+}
+function downloadReceipt(r){
+  const blob=new Blob([receiptText(r)],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`receipt-${r.num}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
 
 /*Additional lang pero dark theme cool asf btw */
 function applyTheme(t){
