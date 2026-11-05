@@ -403,7 +403,7 @@ function renderReceipts(){
           <span class="tag">${r.type==="dine"?"Dine In":"Takeout"}</span>
       </div>
       <div class="time">${r.time.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}</div>
-
+      <button class="rm dl" data-i="${i}" type="button">Download .txt</button>
       <ul class="lines">${r.lines.map(l=>`<li>
           <div class="row">
           <span>${l.qty} × ${l.name}</span>
