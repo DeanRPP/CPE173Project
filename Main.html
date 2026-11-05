@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WrnEats – Order Here</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Work+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+
+  <div class="header-row">
+    <span class="spacer" aria-hidden="true"></span>
+    <div>
+      <h1>WrnEats</h1>
+      <p>Open 24 hours &bull; Tap a plate to start your order</p>
+    </div>
+    <div class="header-actions">
+  <button class="receipts-btn" id="themeToggle" type="button">🌙 Dark mode</button>
+  <button class="receipts-btn" id="openReceipts" type="button">🧾 Receipts <span id="receiptCount">(0)</span></button>
+</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <main class="menu">
+    <h2>Today's plates</h2>
+    <div class="grid" id="grid"></div>
+  </main>
+  <aside class="order" aria-live="polite">
+    <h2>Your order</h2>
+    <div class="order-type"><span id="typeLabel">Choose order type</span><button id="changeType" type="button">Change</button></div>
+    <ul class="lines" id="lines"></ul>
+    <div class="tot">
+      <div><span>Subtotal</span><span id="sub">$0.00</span></div>
+      <div><span>NYC tax (8.875%)</span><span id="tax">$0.00</span></div>
+      <div class="grand"><span>Total</span><span id="total">$0.00</span></div>
+    </div>
+    <button class="big" id="place" disabled>Pay &amp; place order</button>
+    <button class="link" id="clear">Start over</button>
+  </aside>
+</div>
+
+
+
+
+<dialog id="dlg">
+  <div class="dhead"><h2 id="dname"></h2><button class="x" id="close" aria-label="Close">&times;</button></div>
+  <div class="dbody" id="dbody"></div>
+  <div class="dfoot">
+    <div class="qty"><button id="minus" aria-label="Fewer">&minus;</button>
+        <span id="q">1</span>
+        <button id="plus" aria-label="More">+</button>
+    </div>
+    <button class="big" id="add"></button>
+  </div>
+</dialog>
+
+
+
+
+<dialog id="typeDlg">
+  <div class="dhead"><h2>How would you like to order?</h2><button class="x hidden" id="typeClose" aria-label="Close">&times;</button></div>
+  <div class="dbody">
+    <p class="hint">Choose one to continue.</p>
+    <div class="type-grid">
+      <button class="big" id="pickDine" type="button">🍽️ Dine In</button>
+      <button class="big" id="pickTake" type="button">🥡 Takeout</button>
+    </div>
+  </div>
+</dialog>
+
+
+
+
+<dialog id="payDlg">
+  <div class="dhead"><h2>Pay for your order</h2><button class="x" id="closePay" aria-label="Close">&times;</button></div>
+  <div class="dbody">
+    <div class="tot"><div class="grand"><span>Total due</span><span id="payTotal">$0.00</span></div></div>
+    <div class="field">
+      <label for="cashInput">Cash received</label>
+      <input class="cash-input" id="cashInput" type="text" inputmode="decimal" placeholder="e.g. 20.00" autocomplete="off">
+      <p class="pay-msg" id="payMsg"></p>
+    </div>
+  </div>
+  <div class="dfoot"><button class="big" id="confirmPay" disabled>Confirm payment</button></div>
+</dialog>
+
+<dialog id="alcDlg">
+  <div class="dhead"><h2>Add-Ons À La Carte</h2><button class="x" id="closeAlc" aria-label="Close">&times;</button></div>
+  <div class="dbody">
+    <p class="hint">Order any add-on by itself. À la carte pricing runs a bit higher than when it comes with a meal.</p>
+    <div id="alcBody"></div>
+  </div>
+  <div class="dfoot"><button class="big" id="alcAdd">Add selected to order</button></div>
+</dialog>
+
+
+<dialog id="receiptsDlg">
+  <div class="dhead"><h2>Order history</h2><button class="x" id="closeReceipts" aria-label="Close">&times;</button></div>
+  <div class="dbody">
+    <div id="receiptsBody"></div>
+  </div>
+</dialog>
+
+
+
+
+<dialog id="done">
+  <div class="dhead"><h2>Order sent to the kitchen</h2></div>
+  <div class="dbody">
+    <p>Your order number is</p><h2 id="num" style="font-size:64px"></h2>
+    <p id="doneType" style="font-weight:700"></p>
+    <div class="tot">
+      <div><span>Cash tendered</span><span id="doneTendered">$0.00</span></div>
+      <div><span>Change due</span><span id="doneChange">$0.00</span></div>
+    </div>
+    <p id="doneMsg"></p>
+    <button class="link" id="doneDownload" type="button">Download receipt (.txt)</button>
+  </div>
+  <div class="dfoot"><button class="big" id="new">Start a new order</button></div>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
