@@ -492,7 +492,11 @@ if(saved){
 
 $("#openReceipts").onclick=()=>{renderReceipts();$("#receiptsDlg").showModal()};
 $("#closeReceipts").onclick=()=>$("#receiptsDlg").close();
-
+$("#receiptsBody").onclick=e=>{
+  const b=e.target.closest(".dl");
+  if(b)downloadReceipt(receipts[+b.dataset.i]);
+};
+$("#doneDownload").onclick=()=>downloadReceipt(receipts[0]);
 /*exec*/
 //render type shi type shi
 render();
